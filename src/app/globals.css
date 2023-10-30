@@ -2,26 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  .generateImage {
+    height: calc(100vh - 64px);
+  }
+  .cta-btn {
+    background-image: linear-gradient(90deg, #ff4895, #6e4fe9);
+  }
+  .gradient-border {
+    border-image-slice: 1;
+    border-radius: 6px;
+    border-width: 2px;
+    border-image-source: linear-gradient(90deg, #ff4895, #6e4fe9);
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer utilities {
+  .padding-x {
+    @apply px-8;
+  }
+  .flex-Row {
+    @apply flex flex-row;
+  }
+  .flex-Row-center {
+    @apply flex flex-row justify-center items-center;
+  }
+  .flex-Row-between {
+    @apply flex flex-row justify-between items-center;
+  }
+  .flex-Col {
+    @apply flex flex-col;
+  }
 }
