@@ -41,4 +41,14 @@
   .flex-Col {
     @apply flex flex-col;
   }
+  .text-large {
+    @apply text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight md:leading-tight lg:leading-tight xl:leading-tight;
+  }
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .text-medium {
+    @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight md:leading-tight lg:leading-tight xl:leading-tight;
+  }
 }
