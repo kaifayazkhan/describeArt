@@ -29,9 +29,9 @@ export default function GenerateSidebar() {
         setIsLoading(true);
         try {
             const res = await generateImageAPI({ prompt, imageCount });
+            console.log("Images,", res)
             if (res?.data) {
-                const images = res.data.artifacts;
-                console.log("Images,", images)
+                const images = res.data.data.artifacts;
                 setImages(images);
             }
         } catch (e: any) {
