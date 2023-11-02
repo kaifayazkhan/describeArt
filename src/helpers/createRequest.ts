@@ -24,7 +24,7 @@ export const createRequest = async ({
       user: "userReference",
       response: response,
     });
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    throw new Error("Request not created", e);
   }
 };

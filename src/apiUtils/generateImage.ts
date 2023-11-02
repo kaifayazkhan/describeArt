@@ -19,6 +19,6 @@ export const generateImageAPI = async ({ prompt, imageCount }: Description) => {
     });
     return res;
   } catch (e: any) {
-    console.log(e);
+    throw new Error("Image not generated", e);
   }
 };

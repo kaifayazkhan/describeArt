@@ -16,6 +16,6 @@ export const getImageFromStorage = async () => {
     );
     return urls;
   } catch (e: any) {
-    console.log(e);
+    throw new Error("Image not fetched from storage", e);
   }
 };

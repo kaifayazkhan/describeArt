@@ -29,13 +29,12 @@ export default function GenerateSidebar() {
         setIsLoading(true);
         try {
             const res = await generateImageAPI({ prompt, imageCount });
-            console.log("Images,", res)
             if (res?.data) {
                 const images = res.data.data;
                 setImages(images);
             }
         } catch (e: any) {
-            console.log(e);
+            throw new Error("Image generation request failed", e)
         } finally {
             setIsLoading(false);
         }
