@@ -1,7 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import axios, { AxiosResponse } from "axios";
+import { uploadImageToStorage } from "@/helpers/saveImage";
+import { createRequest } from "@/helpers/createRequest";
+import { getDownloadURL } from "firebase/storage";
 
-export const POST = async (req: Request, res: Response) => {
+export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const { prompt, imageCount } = await req.json();
     const data = {
@@ -33,19 +36,39 @@ export const POST = async (req: Request, res: Response) => {
         },
       ],
     };
-    const res = (await axios.post(path, body, {
+    const response = (await axios.post(path, body, {
       headers: headers,
     })) as AxiosResponse;
-    console.log("Response from server", res);
-    return NextResponse.json(
-      { message: "Image generated successfully", data: res.data },
-      { status: 201 }
+
+    //This code converts the base64 to image and save in firebase storage and returns the url of image
+    const imageUrls = await Promise.all(
+      response.data.artifacts.map(async (image: any) => {
+        const uploadImage = await uploadImageToStorage({
+          imageData: image.base64,
+          imageName: image.seed,
+        });
+
+        if (uploadImage) {
+          const url = await getDownloadURL(uploadImage.ref);
+          return url;
+        }
+      })
     );
-  } catch (e: any) {
-    console.log(e);
+    //Returns the response with image urls
+    if (imageUrls.length > 0) {
+      createRequest({ prompt, imageCount, response: imageUrls });
+      return NextResponse.json(
+        { message: "Image generated successfully", data: imageUrls },
+        { status: 201 }
+      );
+    } else {
+      return NextResponse.json({ message: "No images found" }, { status: 400 });
+    }
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { message: "Failed to create data", e },
-      { status: 400 }
+      { message: "Failed to create data", error },
+      { status: 500 }
     );
   }
 };

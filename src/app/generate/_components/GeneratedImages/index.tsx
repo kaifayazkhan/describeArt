@@ -53,16 +53,17 @@ export default function GeneratedImages() {
                             key={index}
                             className="flex-1 relative min-w-[256px] sm:max-w-[256px] min-h-[256px] rounded-lg overflow-hidden"
                         >
-                            <a
-                                href={`data:image/png;base64,${image.base64}`}
+                            {/* <a
+                                href={`${image}`}
                                 className="relative top-0 right-0 z-10"
-                                download={`image_${image.seed}.png`}
+                                // download={`text2image_${index}.png`}
+                                download
                             >
                                 Download
-                            </a>
+                            </a> */}
                             <Image
                                 key={index}
-                                src={`data:image/png;base64, ${image.base64}`}
+                                src={`${image}`}
                                 alt={`Image ${index}`}
                                 fill
                             />

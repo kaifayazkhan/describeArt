@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.6",
     "axios": "^1.6.0",
     "firebase": "^10.5.2",
     "fs": "^0.0.1-security",
     "next": "14.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

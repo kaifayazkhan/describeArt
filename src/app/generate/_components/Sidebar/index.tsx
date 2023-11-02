@@ -31,7 +31,7 @@ export default function GenerateSidebar() {
             const res = await generateImageAPI({ prompt, imageCount });
             console.log("Images,", res)
             if (res?.data) {
-                const images = res.data.data.artifacts;
+                const images = res.data.data;
                 setImages(images);
             }
         } catch (e: any) {

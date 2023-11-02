@@ -1,0 +1,18 @@
+import { ref, uploadString } from "firebase/storage";
+import { storage } from "@/config/firebase";
+
+type data = {
+  imageData: string;
+  imageName: string;
+};
+
+export const uploadImageToStorage = async ({ imageData, imageName }: data) => {
+  const storageRef = ref(storage, `generate-images/text_2_img${imageName}`);
+  // Data URL string
+  const image = `data:image/png;base64,${imageData}`;
+  const res = await uploadString(storageRef, image, "data_url");
+  if (res) {
+    console.log("Uploaded a data_url string!", res);
+  }
+  return res;
+};

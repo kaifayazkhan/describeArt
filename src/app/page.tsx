@@ -1,5 +1,5 @@
-import ImageGallery from '@/components/ImageGallery'
 import React from 'react'
+import ImageGallery from '@/components/ImageGallery'
 
 export default function Home() {
   return (
