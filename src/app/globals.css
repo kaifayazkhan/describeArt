@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer components {
-  .generateImage {
-    height: calc(100vh - 64px);
+  body {
+    background-color: #18181a;
+    color: #f5deb3;
+  }
+  .heightScreen {
+    height: calc(100vh - 80px);
   }
   .cta-btn {
     background-image: linear-gradient(90deg, #ff4895, #6e4fe9);

@@ -42,7 +42,7 @@ export default function GenerateSidebar() {
 
 
     return (
-        <div className="flex-1 flex-Col gap-6 bg-primaryText opacity-90 text-white p-8 h-full relative">
+        <div className="flex-1 flex-Col gap-6 bg-black  p-8 h-full relative">
             {/* Enter Prompt */}
             <TextArea
                 title={

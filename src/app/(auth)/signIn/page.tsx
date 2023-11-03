@@ -1,18 +1,16 @@
-"use client"
-import React from 'react'
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { auth } from '@/config/firebase'
+import Link from "next/link";
+import SignInForm from "./_components/signInForm";
 
 export default function SignIn() {
-    const provider = new GoogleAuthProvider();
-
-    const signInWithGoogle = async () => {
-        const res = await signInWithPopup(auth, provider);
-        console.log("Response:", res);
-    }
     return (
-        <div className='padding-x'>
-            <button className='bg-primaryText text-white p-4' onClick={signInWithGoogle}>Sign In with google</button>
-        </div>
+        <section className="w-full flex justify-center items-center padding-x heightScreen">
+            <div className="w-full md:w-2/5 md:min-w-[450px] max-w-xl p-4 md:p-8">
+                <h1 className="text-medium mb-4" >Log In</h1>
+                <SignInForm />
+                <div className="text-center">
+                    Not have an account? <Link href="/signUp" className="text-primaryCTA">Create Account</Link>
+                </div>
+            </div>
+        </section>
     )
 }

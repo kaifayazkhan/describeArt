@@ -7,7 +7,7 @@ import GenerateContextProvider from '@/context/Generate'
 export default function Generate() {
     return (
         <GenerateContextProvider>
-            <div className='flex-Col h-screen md:flex-Row md:generateImage'>
+            <div className='flex-Col h-screen md:flex-Row md:heightScreen'>
                 <GenerateSidebar />
                 <GeneratedImages />
             </div>

@@ -10,7 +10,7 @@ export default function GeneratedImages() {
     } = useGenerateImage();
 
     return (
-        <div className="flex-[3] bg-primaryText h-full text-white py-8 padding-x overflow-y-auto">
+        <div className="flex-[3] h-full  py-8 padding-x overflow-y-auto">
             {/* Prompt */}
             {(images.length >= 1 || isLoading) && <p>{prompt}</p>}
             {/* Images */}
