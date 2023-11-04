@@ -1,26 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDoc, doc } from "firebase/firestore";
-import { firebase_db } from "@/config/firebase";
+import { jwtDecode } from "jwt-decode";
+import { getUser } from "@/helpers/getUser";
 
 export const GET = async (req: NextRequest) => {
+  const token = req.headers.get("authorization") as string;
+
+  if (!token) {
+    console.error("Token not provided or invalid.");
+    return NextResponse.json(
+      { message: "Unauthorized - Token Missing", status: 401 },
+      { status: 401 }
+    );
+  }
   try {
-    const id = req.nextUrl.searchParams.get("id");
+    const decoded = jwtDecode(token);
+    const id = (decoded as any)?.user_id;
+
     if (!id) {
+      console.error("User ID not present in token payload.");
       return NextResponse.json(
-        {
-          message: "User not found ",
-          status: 404,
-        },
-        { status: 404 }
+        { message: "Unauthorized - User ID Missing", status: 401 },
+        { status: 401 }
       );
     }
-    const userRef = doc(firebase_db, "users", id);
-    const userDoc = await getDoc(userRef);
+    const userDoc = await getUser(id);
 
     if (!userDoc.exists()) {
       return NextResponse.json(
         {
-          message: "User not found ",
+          message: "Unauthorized",
           status: 404,
         },
         { status: 404 }
@@ -38,7 +46,7 @@ export const GET = async (req: NextRequest) => {
   } catch (e: any) {
     return NextResponse.json(
       {
-        message: "Something went wrong",
+        message: "Internal Server Error",
         error: e.message,
       },
       { status: 500 }

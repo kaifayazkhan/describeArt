@@ -42,6 +42,7 @@ export default function GeneratedImages() {
                                         width={120}
                                         height={120}
                                         alt="Logo"
+                                        className="animate-pulse "
                                     />
                                 </div>
                             ))}

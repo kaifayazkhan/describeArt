@@ -23,8 +23,10 @@ export default function SignInForm() {
     const onSubmit: SubmitHandler<SingInInputs> = async (data) => {
         try {
             const res = (await signIn(data)) as AxiosResponse<any>;
-            if (res.status === 200) {
+            if (res.status === 200 && res.data.data.user) {
                 router.push("/generate")
+                localStorage.setItem("token", res.data.data.user.stsTokenManager.accessToken);
+
             } else {
                 toast.error("Invalid email or password!")
             }

@@ -3,14 +3,31 @@ import axios, { AxiosResponse } from "axios";
 import { uploadImageToStorage } from "@/helpers/saveImage";
 import { createRequest } from "@/helpers/createRequest";
 import { getDownloadURL } from "firebase/storage";
+import { jwtDecode } from "jwt-decode";
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
+  const token = req.headers.get("authorization") as string;
+
+  if (!token) {
+    return NextResponse.json(
+      {
+        message: "Unauthorized - Token not present in auth header",
+        status: 404,
+      },
+      { status: 404 }
+    );
+  }
   try {
+    const decoded = jwtDecode(token);
+    const id = (decoded as any)?.user_id;
+    if (!id) {
+      console.error("User ID not present in token payload.");
+      return NextResponse.json(
+        { message: "Unauthorized - User ID Missing", status: 401 },
+        { status: 401 }
+      );
+    }
     const { prompt, imageCount } = await req.json();
-    const data = {
-      prompt,
-      imageCount,
-    };
     const path =
       "https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image";
 
