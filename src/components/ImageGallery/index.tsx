@@ -24,7 +24,7 @@ export default function ImageGallery() {
                             src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(70).webp"
                         />
                     </div>
-                    <div className="w-[48%] md:w-[49%] p-1 md:p-2 relative">
+                    <div className="w-[48%] p-1 md:p-2 relative">
                         <Image
                             fill
                             alt="gallery"
@@ -32,7 +32,7 @@ export default function ImageGallery() {
                             src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(75).webp"
                         />
                     </div>
-                    <div className="w-[48%] md:w-[49%] p-1 md:p-2 relative">
+                    <div className="w-[48%] p-1 md:p-2 relative">
                         <Image
                             fill
                             alt="gallery"

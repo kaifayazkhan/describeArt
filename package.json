@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
+    "@radix-ui/react-accordion": "^1.1.2",
     "@types/uuid": "^9.0.6",
     "axios": "^1.6.0",
+    "clsx": "^2.0.0",
     "firebase": "^10.5.2",
     "fs": "^0.0.1-security",
     "jwt-decode": "^4.0.0",
@@ -20,6 +22,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
     "react-toastify": "^9.1.3",
+    "tailwind-merge": "^2.1.0",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },

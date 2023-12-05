@@ -67,7 +67,7 @@ export default function SignInForm() {
                 placeholder="Confirm your password"
             />
             {errors.confirmPassword && <ErrorMessage errorMsg={errors.confirmPassword.message} />}
-            <div className="mt-4">
+            <div className="my-4">
                 <CTAButton title={isSubmitting ? "Creating your account..." : "Create"} type="submit" />
             </div>
         </form>

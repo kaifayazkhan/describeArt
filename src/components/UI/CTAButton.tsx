@@ -1,14 +1,16 @@
 import React from 'react'
+import { cn } from "@/utils/tailwind-merge"
 
 type Props = {
     title: string,
-    onClick?: () => {},
-    type?: "button" | "submit"
+    onClick?: () => void,
+    type?: "button" | "submit",
+    className?: string,
 }
 
-export default function CTAButton({ title, onClick, type }: Props) {
+export default function CTAButton({ title, onClick, type, className }: Props) {
     return (
-        <button onClick={onClick} className="w-full mb-4 cta-btn p-2 rounded-md hover:opacity-80" type={type}>
+        <button onClick={onClick} className={cn("w-full cta-btn p-2 rounded-md hover:opacity-80", className)} type={type}>
             {title}
         </button>
     )

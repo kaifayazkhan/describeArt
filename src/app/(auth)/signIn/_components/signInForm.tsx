@@ -60,7 +60,7 @@ export default function SignInForm() {
                     Forgot your Password?
                 </Link>
             </div>
-            <div className="mt-4">
+            <div className="my-4">
                 <CTAButton title={isSubmitting ? "Loading..." : "Login"} type="submit" />
             </div>
         </form>

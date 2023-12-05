@@ -65,7 +65,7 @@ export default function GenerateSidebar() {
                 onChange={handleValueChange}
             />
             {/* Generate Button */}
-            <div className="md:absolute bottom-0 left-0 right-0 md:px-8">
+            <div className="md:absolute bottom-0 left-0 right-0 md:px-8 mb-4">
                 <CTAButton title="Generate" onClick={generate} />
             </div>
         </div>
