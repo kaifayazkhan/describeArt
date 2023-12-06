@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 
-export default function SuccessModal({ message }: { message: string }) {
+export default function SuccessModal({ message, path, btnText }: { message: string, path?: string, btnText?: string }) {
     return (
-        <div className='absolute inset-0 flex-center bg-darkOverlay padding-x'>
+        <div className='absolute inset-0 flex-center bg-darkOverlay padding-x z-[1000]'>
             <div
                 className="relative  mx-auto p-5 w-96 shadow-lg rounded-xl bg-secondaryBg"
             >
@@ -34,10 +34,10 @@ export default function SuccessModal({ message }: { message: string }) {
                     </div>
                     <div className="items-center px-4 py-3">
                         <Link
-                            href="/signIn"
+                            href={path ? path : "/signIn"}
                             className="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-600"
                         >
-                            Go Back to Login
+                            {btnText ? btnText : "Go Back to Login"}
                         </Link>
                     </div>
                 </div>

@@ -14,14 +14,14 @@ import { cn } from "@/utils/tailwind-merge";
 export default function Header({ padding }: { padding?: string }) {
     const pathname = usePathname();
     const router = useRouter();
-    const [token, setToken] = useState(false);
+    const [accessToken, setAccessToken] = useState(false);
 
-    const { removeToken } = useToken();
+    const { token, removeToken } = useToken();
 
 
     useEffect(() => {
         const userToken = localStorage.getItem('token');
-        setToken(userToken !== null);
+        setAccessToken(userToken !== null);
     }, [token])
 
 
@@ -37,10 +37,10 @@ export default function Header({ padding }: { padding?: string }) {
     return (
         <header className={cn(`bg-black w-full sticky top-0 z-30 left-0 right-0 ${padding ? padding : "padding-x"}`)}>
             <div className="h-20 flex-Row-between">
-                <div className="flex-center h-full gap-1">
+                <Link href="/" className="flex-center h-full gap-1">
                     <Image src="/assets/logo-1.webp" width={50} height={100} alt="Logo" />
                     <span className="text-xl font-semibold hidden sm:block">Describe Art</span>
-                </div>
+                </Link>
                 <nav className="hidden md:flex items-center gap-8">
                     <ul className="flex items-center gap-8 ">
                         {headerData?.map(({ id, title, link }: headers) => (
@@ -64,7 +64,7 @@ export default function Header({ padding }: { padding?: string }) {
 
                 <div className="flex md:hidden flex-center gap-3">
                     <div className="md:hidden">
-                        {token ? (
+                        {accessToken ? (
                             <CTAButton title="Logout" onClick={handleLogout} className="rounded-3xl px-5" />
                         ) : (
                             <CTAButton title="Login" onClick={handleLogin} className="rounded-3xl px-5" />

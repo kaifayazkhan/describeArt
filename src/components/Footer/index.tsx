@@ -11,7 +11,7 @@ export default function Footer() {
                 </Link>
             </div>
             <div className="flex-Row-center gap-1">
-                <Link href="/">Terms and Conditions</Link>
+                <p>Copyright &copy;2023</p>
             </div>
         </footer>
     )

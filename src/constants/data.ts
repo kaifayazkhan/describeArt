@@ -6,13 +6,8 @@ export const headerData = [
   },
   {
     id: 2,
-    title: "About",
-    link: "#",
-  },
-  {
-    id: 3,
     title: "Contact us",
-    link: "#",
+    link: "/contact",
   },
 ];
 

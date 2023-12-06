@@ -9,10 +9,10 @@ import ErrorMessage from "../../../../components/UI/ErrorMessage";
 import { signUp } from "@/apiUtils/auth";
 import InputBox from "@/components/UI/Input";
 import CTAButton from "@/components/UI/CTAButton";
-import SuccessModal from "../../_components/SuccessModal";
+import SuccessModal from "../../../../components/UI/SuccessModal";
 import { useState } from "react";
 
-export default function SignInForm() {
+export default function SignUpForm() {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const router = useRouter();
     const {

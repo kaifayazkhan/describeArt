@@ -55,3 +55,19 @@ export const GenerateSchema = z.object({
 });
 
 export type GenerateInputs = z.infer<typeof GenerateSchema>;
+
+export const ContactSchema = z.object({
+  name: z
+    .string()
+    .nonempty("Name is required.")
+    .min(3, { message: "Must be 3 or more characters long" })
+    .max(30, { message: "Name must be less than 30 words" }),
+  email: z.string().nonempty("Email is required.").email(),
+  subject: z
+    .string()
+    .nonempty("Subject is required")
+    .min(10, { message: "Subject must be 10 characters long" }),
+  message: z.string().nonempty("Message is required."),
+});
+
+export type ContactInputs = z.infer<typeof ContactSchema>;

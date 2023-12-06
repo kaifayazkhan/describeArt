@@ -9,9 +9,9 @@ import ErrorMessage from "../../../../components/UI/ErrorMessage";
 import { forgotPassword } from "@/apiUtils/auth";
 import InputBox from "@/components/UI/Input";
 import CTAButton from "@/components/UI/CTAButton";
-import SuccessModal from "../../_components/SuccessModal";
+import SuccessModal from "../../../../components/UI/SuccessModal";
 
-export default function SignInForm() {
+export default function ForgotPasswordForm() {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const {
         register,
