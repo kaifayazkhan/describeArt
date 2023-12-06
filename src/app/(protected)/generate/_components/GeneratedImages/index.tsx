@@ -1,19 +1,27 @@
+import React, { useState } from "react";
 import { useGenerateImage } from "@/hooks/generateImage";
 import Image from "next/image";
-import React from "react";
+import PreviewImage from "../PreviewImage";
 
 export default function GeneratedImages() {
+    const [previewUrl, setPreviewUrl] = useState("");
+    const [showPreview, setShowPreview] = useState(false);
+
     const {
         imageDesc: { prompt, imageCount },
         isLoading,
         images,
     } = useGenerateImage();
 
+    const handlePreview = (url: string) => {
+        setPreviewUrl(url)
+        setShowPreview(true);
+    }
+
+
     return (
-        <div className="flex-[3] h-full  py-8 padding-x overflow-y-auto">
-            {/* Prompt */}
+        <div className="flex-[3] h-full py-6 px-[7%] overflow-y-auto">
             {(images.length >= 1 || isLoading) && <p>{prompt}</p>}
-            {/* Images */}
             {!isLoading && images.length <= 0 && (
                 <>
                     <p>Describe your art...</p>
@@ -28,14 +36,14 @@ export default function GeneratedImages() {
                 </>
             )}
             {isLoading ? (
-                <div className="flex-Row gap-4 mt-3 flex-wrap">
+                <div className="flex-Row gap-10 mt-3 flex-wrap">
                     {imageCount > 0 &&
                         Array(imageCount)
                             .fill(1)
                             .map((_, i) => (
                                 <div
                                     key={i}
-                                    className="flex-1 min-w-[256px] min-h-[256px] max-w-[256px] flex-center  gradient-border"
+                                    className="flex-1 min-w-[256px] min-h-[256px] max-w-full sm:max-w-[256px] flex-center  gradient-border"
                                 >
                                     <Image
                                         src="/assets/logo-2.webp"
@@ -48,20 +56,13 @@ export default function GeneratedImages() {
                             ))}
                 </div>
             ) : (
-                <div className="flex-Row gap-4 mt-3 flex-wrap">
+                <div className="flex-Row gap-10 mt-3 flex-wrap">
                     {images.map((image: any, index) => (
                         <div
                             key={index}
-                            className="flex-1 relative min-w-[256px] sm:max-w-[256px] min-h-[256px] rounded-lg overflow-hidden"
+                            className="flex-1 min-w-[256px] min-h-[256px] max-w-full sm:max-w-[256px] flex-center  gradient-border relative hover:opacity-90 cursor-pointer"
+                            onClick={() => handlePreview(image)}
                         >
-                            {/* <a
-                                href={`${image}`}
-                                className="relative top-0 right-0 z-10"
-                                // download={`text2image_${index}.png`}
-                                download
-                            >
-                                Download
-                            </a> */}
                             <Image
                                 key={index}
                                 src={`${image}`}
@@ -70,6 +71,7 @@ export default function GeneratedImages() {
                             />
                         </div>
                     ))}
+                    {showPreview && <PreviewImage src={previewUrl} handleClose={() => setShowPreview(false)} />}
                 </div>
             )}
         </div>

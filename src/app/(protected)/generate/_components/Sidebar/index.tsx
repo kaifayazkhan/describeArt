@@ -37,7 +37,7 @@ export default function GenerateSidebar() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex-Col gap-4 bg-black  p-8 h-full relative">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex-Col gap-4 bg-black  py-5 px-3 h-full relative">
             <TextArea
                 title={
                     <div>
@@ -58,7 +58,7 @@ export default function GenerateSidebar() {
             {errors.imageCount && <ErrorMessage errorMsg={errors.imageCount.message} />}
 
             {/* Generate Button */}
-            <div className="md:absolute bottom-0 left-0 right-0 md:px-8 mb-4">
+            <div className="md:absolute bottom-0 left-0 right-0 md:px-3 mb-4">
                 <CTAButton title={isSubmitting ? "Generating..." : "Generate"} type="submit" />
             </div>
         </form>

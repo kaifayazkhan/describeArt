@@ -8,9 +8,10 @@ import { headerData } from "@/constants/data";
 import Hamburger from "./Hamburger";
 import { headers } from "./types";
 import useToken from "@/hooks/useToken";
+import { cn } from "@/utils/tailwind-merge";
 
 
-export default function Header() {
+export default function Header({ padding }: { padding?: string }) {
     const pathname = usePathname();
     const router = useRouter();
     const [token, setToken] = useState(false);
@@ -34,7 +35,7 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-black w-full sticky top-0 z-30 left-0 right-0 padding-x">
+        <header className={cn(`bg-black w-full sticky top-0 z-30 left-0 right-0 ${padding ? padding : "padding-x"}`)}>
             <div className="h-20 flex-Row-between">
                 <div className="flex-center h-full gap-1">
                     <Image src="/assets/logo-1.webp" width={50} height={100} alt="Logo" />

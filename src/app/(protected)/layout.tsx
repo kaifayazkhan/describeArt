@@ -7,7 +7,6 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
     const { token } = useToken();
 
     if (!token) {
-        // return("/signIn");
         router.push("/signIn")
         return;
     }
