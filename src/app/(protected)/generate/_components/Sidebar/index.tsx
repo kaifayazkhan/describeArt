@@ -1,34 +1,30 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { generateImageAPI } from "@/apiUtils/generateImage";
 import CTAButton from "@/components/UI/CTAButton";
 import InputBox from "@/components/UI/Input";
 import TextArea from "@/components/UI/TextArea";
 import { useGenerateImage } from "@/hooks/generateImage";
+import { GenerateSchema, GenerateInputs } from "@/utils/FormSchema";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 
 export default function GenerateSidebar() {
-    const { imageDesc: { prompt, imageCount }, setImageDesc, setIsLoading, setImages } = useGenerateImage();
+    const { setImageDesc, setIsLoading, setImages } = useGenerateImage();
 
-    const handleValueChange = (e: any) => {
-        setImageDesc({
-            prompt,
-            imageCount: parseInt(e.target.value)
-        })
-    }
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting }
+    } = useForm<GenerateInputs>({ resolver: zodResolver(GenerateSchema) });
 
-    const handlePromptChange = (e: any) => {
-        setImageDesc({
-            prompt: e.target.value,
-            imageCount
-        })
-    }
-
-    const generate = async () => {
-        if (prompt === null || prompt === "" || imageCount <= 0 || !imageCount) {
-            alert("Please enter a prompt");
-            return;
-        }
+    const onSubmit: SubmitHandler<GenerateInputs> = async (data) => {
         setIsLoading(true);
         try {
-            const res = await generateImageAPI({ prompt, imageCount });
+            setImageDesc({
+                prompt: data.prompt,
+                imageCount: parseInt(data.imageCount)
+            });
+            const res = await generateImageAPI(data);
             if (res?.data) {
                 const images = res.data.data;
                 setImages(images);
@@ -38,36 +34,33 @@ export default function GenerateSidebar() {
         } finally {
             setIsLoading(false);
         }
-    };
-
+    }
 
     return (
-        <div className="flex-1 flex-Col gap-6 bg-black  p-8 h-full relative">
-            {/* Enter Prompt */}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex-Col gap-4 bg-black  p-8 h-full relative">
             <TextArea
                 title={
-                    <>
-                        <div>
-                            <span className="text-primaryCTA">Describe</span> what you want
-                        </div>
-                    </>
+                    <div>
+                        <span className="text-primaryCTA">Describe</span> what you want
+                    </div>
                 }
-                value={prompt}
                 placeholder="Enter your prompt"
-                onChange={handlePromptChange}
+                register={register("prompt")}
             />
-            {/* Image Count */}
+            {errors.prompt && <ErrorMessage errorMsg={errors.prompt.message} />}
+
             <InputBox
                 title="Image Count"
-                value={imageCount}
                 type="number"
                 placeholder="Number of Images"
-                onChange={handleValueChange}
+                register={register("imageCount")}
             />
+            {errors.imageCount && <ErrorMessage errorMsg={errors.imageCount.message} />}
+
             {/* Generate Button */}
             <div className="md:absolute bottom-0 left-0 right-0 md:px-8 mb-4">
-                <CTAButton title="Generate" onClick={generate} />
+                <CTAButton title={isSubmitting ? "Generating..." : "Generate"} type="submit" />
             </div>
-        </div>
+        </form>
     );
 }

@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { signInSchema, SingInInputs } from "@/utils/FormSchema";
-import ErrorMessage from "../../_components/ErrorMessage";
+import ErrorMessage from "../../../../components/UI/ErrorMessage";
 import { signIn } from "@/apiUtils/auth";
 import InputBox from "@/components/UI/Input";
 import CTAButton from "@/components/UI/CTAButton";

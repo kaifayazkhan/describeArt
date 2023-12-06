@@ -27,6 +27,7 @@ const config: Config = {
         primaryCTA: "#6e4fe9",
         secondaryCTA: "#ff4895",
         linearGradient: { "90": "linear-gradient(90deg, #ff4895, #6e4fe9)" },
+        darkOverlay: "rgba(0,0,0,0.9)",
       },
       keyframes: {
         "accordion-down": {

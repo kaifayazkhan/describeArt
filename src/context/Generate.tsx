@@ -2,11 +2,11 @@ import React, { createContext, useState } from "react";
 
 type ImageDescription = {
     prompt: string;
-    imageCount: number;
+    imageCount: Number;
 }
 
 const initialValue: ImageDescription = {
-    prompt: "award winning photograph of white unicorn running across clouds in sky that is pink in color with realistic shadows and mist ",
+    prompt: "",
     imageCount: 1
 }
 
@@ -27,7 +27,7 @@ export const GenerateContext = createContext<{
 });
 
 const GenerateContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [imageDesc, setImageDesc] = useState<ImageDescription>(initialValue);
+    const [imageDesc, setImageDesc] = useState(initialValue);
     const [isLoading, setIsLoading] = useState(false);
     const [images, setImages] = useState<object[]>([]);
 

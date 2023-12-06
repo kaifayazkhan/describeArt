@@ -48,3 +48,22 @@ export const signUp = async ({ name, email, password }: signUpType) => {
     return error?.response;
   }
 };
+
+export const forgotPassword = async ({ email }: { email: string }) => {
+  try {
+    const res = await axios.post(
+      "/api/user/forgot-password",
+      {
+        email,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (error: any) {
+    return error?.response;
+  }
+};

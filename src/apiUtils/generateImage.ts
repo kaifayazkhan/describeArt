@@ -2,7 +2,7 @@ import axios from "axios";
 
 type Description = {
   prompt: string;
-  imageCount: Number;
+  imageCount: string;
 };
 
 export const generateImageAPI = async ({ prompt, imageCount }: Description) => {
@@ -13,7 +13,7 @@ export const generateImageAPI = async ({ prompt, imageCount }: Description) => {
   };
   const body = {
     prompt,
-    imageCount,
+    imageCount: parseInt(imageCount),
   };
   try {
     const res = await axios.post("/api/generate", body, {

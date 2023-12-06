@@ -1,17 +1,17 @@
 import React, { ReactNode } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 type Input = {
     title: ReactNode,
     placeholder: string,
-    value: string,
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+    register?: UseFormRegisterReturn
 }
 
-export default function TextArea({ title, placeholder, value, onChange }: Input) {
+export default function TextArea({ title, placeholder, register }: Input) {
     return (
         <div className="flex-Col gap-2">
             <label htmlFor={"title"}>{title}</label>
-            <textarea placeholder={placeholder} value={value} onChange={onChange} className='outline-none border rounded-md p-4 bg-transparent border-primaryCTA' rows={4} />
+            <textarea placeholder={placeholder} className='outline-none border rounded-md p-4 bg-transparent border-primaryCTA' rows={4} {...register} />
         </div>
     )
 }

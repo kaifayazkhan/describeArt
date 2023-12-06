@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/config/firebase";
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   try {
     const { email } = await req.json();
     //sends password reset email to user email
@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
   } catch (e: any) {
     return NextResponse.json(
       {
-        message: "User not found",
+        message: "User not found with this email",
         error: e.message,
       },
       { status: 500 }

@@ -1,4 +1,4 @@
-import { number, z } from "zod";
+import { z } from "zod";
 
 export const signInSchema = z.object({
   username: z.string().nonempty("Email is required").email(),
@@ -12,7 +12,7 @@ export const signUpSchema = z
     name: z
       .string()
       .nonempty("Name is required.")
-      .min(5, { message: "Must be 5 or more characters long" })
+      .min(3, { message: "Must be 5 or more characters long" })
       .max(30, { message: "Name must be less than 30 words" }),
     email: z.string().nonempty("Email is required.").email(),
     password: z
@@ -35,3 +35,23 @@ export const forgotPasswordEmailSchema = z.object({
 export type ForgotPasswordEmailInput = z.infer<
   typeof forgotPasswordEmailSchema
 >;
+
+export const GenerateSchema = z.object({
+  prompt: z
+    .string()
+    .nonempty("Prompt is required")
+    .min(4, { message: "Prompt length must be greater than 4 characters" }),
+  imageCount: z
+    .string() // Change the type to string
+    .refine(
+      (value) => {
+        const numberValue = Number(value);
+        return !isNaN(numberValue) && numberValue >= 1 && numberValue <= 6;
+      },
+      {
+        message: "Image count must be a number between 1 and 6",
+      }
+    ),
+});
+
+export type GenerateInputs = z.infer<typeof GenerateSchema>;
