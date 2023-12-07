@@ -6,10 +6,8 @@ type Description = {
 };
 
 export const generateImageAPI = async ({ prompt, imageCount }: Description) => {
-  const token = localStorage.getItem("token");
   const headers = {
     Accept: "application/json",
-    Authorization: `Bearer ${token}`,
   };
   const body = {
     prompt,

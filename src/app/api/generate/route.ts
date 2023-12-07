@@ -6,12 +6,11 @@ import { getDownloadURL } from "firebase/storage";
 import { jwtDecode } from "jwt-decode";
 
 export const POST = async (req: NextRequest) => {
-  const token = req.headers.get("authorization") as string;
-
+  const token = req.cookies.get("token")?.value || "";
   if (!token) {
     return NextResponse.json(
       {
-        message: "Unauthorized - Token not present in auth header",
+        message: "Unauthorized - Token not present",
         status: 404,
       },
       { status: 404 }

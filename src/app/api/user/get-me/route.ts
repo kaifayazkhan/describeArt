@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { getUser } from "@/helpers/getUser";
 
 export const GET = async (req: NextRequest) => {
-  const token = req.headers.get("authorization") as string;
+  const token = req.cookies.get("token")?.value || "";
 
   if (!token) {
     console.error("Token not provided or invalid.");

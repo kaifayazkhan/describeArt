@@ -1,15 +1,32 @@
 "use client"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import axios from "axios"
 import Image from "next/image"
 import CTAButton from "../UI/CTAButton"
-import useToken from "@/hooks/useToken";
 
 export default function Banner() {
     const router = useRouter();
-    const { token } = useToken();
+    const [accessToken, setAccessToken] = useState(false);
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await axios.get('/api/user/get-me');
+                if (res.data && res.status === 200) {
+                    setAccessToken(true);
+                } else {
+                    setAccessToken(false);
+                    router.push("/")
+                }
+            } catch (e) {
+                router.push("/")
+            }
+        })()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handlePath = () => {
-        if (token) {
+        if (accessToken) {
             router.push("/generate");
         } else {
             router.push('/signIn')

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import CTAButton from "../UI/CTAButton";
 import { headerData } from "@/constants/data";
 import Hamburger from "./Hamburger";
 import { headers } from "./types";
-import useToken from "@/hooks/useToken";
+import axios from "axios";
 import { cn } from "@/utils/tailwind-merge";
 
 
@@ -16,23 +16,35 @@ export default function Header({ padding }: { padding?: string }) {
     const router = useRouter();
     const [accessToken, setAccessToken] = useState(false);
 
-    const { token, removeToken } = useToken();
-
-
-    useEffect(() => {
-        const userToken = localStorage.getItem('token');
-        setAccessToken(userToken !== null);
-    }, [token])
-
-
     const handleLogin = () => {
         router.push("/signIn");
     }
 
-    const handleLogout = () => {
-        removeToken();
-        router.push("/");
-    };
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await axios.get('/api/user/get-me');
+                if (res.data && res.status === 200) {
+                    setAccessToken(true);
+                } else {
+                    setAccessToken(false);
+                    router.push("/")
+                }
+            } catch (e) {
+                router.push("/")
+            }
+        })()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handleLogout = async () => {
+        try {
+            await axios.get('/api/user/logout')
+            router.push('/')
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
 
     return (
         <header className={cn(`bg-black w-full sticky top-0 z-30 left-0 right-0 ${padding ? padding : "padding-x"}`)}>
@@ -53,7 +65,7 @@ export default function Header({ padding }: { padding?: string }) {
                             </li>
                         ))}
                         <li>
-                            {token ? (
+                            {accessToken ? (
                                 <CTAButton title="Logout" onClick={handleLogout} className="rounded-3xl px-5" />
                             ) : (
                                 <CTAButton title="Login" onClick={handleLogin} className="rounded-3xl px-5" />
