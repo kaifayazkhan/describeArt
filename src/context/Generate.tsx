@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 type ImageDescription = {
     prompt: string;
-    imageCount: Number;
+    imageCount: number;
 }
 
 const initialValue: ImageDescription = {
