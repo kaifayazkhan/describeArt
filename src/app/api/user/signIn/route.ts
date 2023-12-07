@@ -7,7 +7,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const { email, password } = await req.json();
     const response = await signInWithEmailAndPassword(auth, email, password);
-    const user = response.user;
+    const user = response.user as any;
     const userDoc = await getUser(user.uid);
 
     if (
@@ -24,12 +24,14 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         { status: 404 }
       );
     }
-    const token = response?.user?.stsTokenManager?.accessToken;
+
+    const token = user?.stsTokenManager?.accessToken;
 
     const res = NextResponse.json({
       message: "Login Successful",
       status: 200,
       data: response,
+      token,
     });
 
     res.cookies.set("token", token, {
