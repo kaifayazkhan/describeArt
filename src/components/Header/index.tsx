@@ -20,26 +20,29 @@ export default function Header({ padding }: { padding?: string }) {
         router.push("/signIn");
     }
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const res = await axios.get('/api/user/get-me');
-                if (res.data && res.status === 200) {
-                    setAccessToken(true);
-                } else {
-                    setAccessToken(false);
-                    router.push("/")
-                }
-            } catch (e) {
-                router.push("/")
+    const getMe = async () => {
+        try {
+            const res = await axios.get('/api/user/get-me');
+            if (res.data && res.status === 200) {
+                setAccessToken(true);
+            } else {
+                setAccessToken(false);
+                // router.push("/")
             }
-        })()
+        } catch (e) {
+            // router.push("/")
+        }
+    }
+
+    useEffect(() => {
+        getMe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleLogout = async () => {
         try {
-            await axios.get('/api/user/logout')
+            await axios.get('/api/user/logout');
+            getMe();
             router.push('/')
         } catch (error: any) {
             console.log(error.message);
