@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function SuccessModal({ message, path, btnText }: { message: string, path?: string, btnText?: string }) {
     return (
-        <div className='absolute inset-0 flex-center bg-darkOverlay padding-x z-[1000]'>
+        <div className='fixed inset-0 flex-center bg-darkOverlay padding-x z-[1000]'>
             <div
                 className="relative  mx-auto p-5 w-96 shadow-lg rounded-xl bg-secondaryBg"
             >
