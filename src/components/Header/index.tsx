@@ -45,7 +45,7 @@ export default function Header({ padding }: { padding?: string }) {
             getMe();
             router.push('/')
         } catch (error: any) {
-            console.log(error.message);
+            throw new Error("Logout failed", error.message);
         }
     }
 

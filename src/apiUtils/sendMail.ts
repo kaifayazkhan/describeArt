@@ -22,8 +22,8 @@ const sendMail = async (variables: EmailData) => {
       "jcoqlfowIkys2Yh1s"
     );
     return response;
-  } catch (e) {
-    console.log(e);
+  } catch (err: any) {
+    throw new Error("Mail not send", err);
   }
 };
 
