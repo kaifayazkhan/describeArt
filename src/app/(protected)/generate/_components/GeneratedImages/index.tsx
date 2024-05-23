@@ -25,25 +25,27 @@ export default function GeneratedImages() {
             {!isLoading && images.length <= 0 && (
                 <>
                     <p>Describe your art...</p>
-                    <div className="flex-1 min-w-[256px] min-h-[256px] mobile:max-w-[256px] flex-center  gradient-border mt-3">
-                        <Image
-                            src="/assets/logo-2.webp"
-                            width={120}
-                            height={120}
-                            alt="Logo"
-                        />
+                    <div className="grid grid-cols-3 gap-10 mt-3">
+                        <div className="flex-1 aspect-square max-w-full  flex-center  gradient-border relative hover:opacity-90 ">
+                            <Image
+                                src="/assets/logo-2.webp"
+                                width={120}
+                                height={120}
+                                alt="Logo"
+                            />
+                        </div>
                     </div>
                 </>
             )}
             {isLoading ? (
-                <div className="flex-Row gap-10 mt-3 flex-wrap">
+                <div className="grid grid-cols-3 mt-3 gap-10">
                     {imageCount > 0 &&
                         Array(imageCount)
                             .fill(1)
                             .map((_, i) => (
                                 <div
                                     key={i}
-                                    className="flex-1 min-w-[256px] min-h-[256px] max-w-full sm:max-w-[256px] flex-center  gradient-border"
+                                    className="flex-1 aspect-square max-w-full  flex-center  gradient-border relative hover:opacity-90 cursor-pointer"
                                 >
                                     <Image
                                         src="/assets/logo-2.webp"
@@ -56,11 +58,11 @@ export default function GeneratedImages() {
                             ))}
                 </div>
             ) : (
-                <div className="flex-Row gap-10 mt-3 flex-wrap">
+                <div className="grid grid-cols-3 mt-3 gap-10">
                     {images.map((image: any, index) => (
                         <div
                             key={index}
-                            className="flex-1 min-w-[256px] min-h-[256px] max-w-full sm:max-w-[256px] flex-center  gradient-border relative hover:opacity-90 cursor-pointer"
+                            className="flex-1 aspect-square max-w-full  flex-center  gradient-border relative hover:opacity-90 cursor-pointer"
                             onClick={() => handlePreview(image)}
                         >
                             <Image
