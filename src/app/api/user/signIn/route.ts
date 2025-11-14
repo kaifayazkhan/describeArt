@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/config/firebase";
 import { getUser } from "@/helpers/getUser";
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   try {
     const { email, password } = await req.json();
     const response = await signInWithEmailAndPassword(auth, email, password);
