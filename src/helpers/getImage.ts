@@ -1,5 +1,5 @@
-import { ref, listAll, getDownloadURL } from "firebase/storage";
-import { storage } from "@/config/firebase";
+import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import { storage } from '@/config/firebase';
 
 //Gives all images stored in storage
 export const getImageFromStorage = async () => {
@@ -12,10 +12,10 @@ export const getImageFromStorage = async () => {
     const urls = await Promise.all(
       res.items.map((item) => {
         return getDownloadURL(item);
-      })
+      }),
     );
     return urls;
   } catch (e: any) {
-    throw new Error("Image not fetched from storage", e);
+    throw new Error('Image not fetched from storage', e);
   }
 };

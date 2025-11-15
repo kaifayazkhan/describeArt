@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/config/firebase";
-import { getUser } from "@/helpers/getUser";
+import { NextRequest, NextResponse } from 'next/server';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/config/firebase';
+import { getUser } from '@/helpers/getUser';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -18,23 +18,23 @@ export const POST = async (req: NextRequest) => {
     ) {
       return NextResponse.json(
         {
-          message: "User not found",
+          message: 'User not found',
           status: 404,
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     const token = user?.stsTokenManager?.accessToken;
 
     const res = NextResponse.json({
-      message: "Login Successful",
+      message: 'Login Successful',
       status: 200,
       data: response,
       token,
     });
 
-    res.cookies.set("token", token, {
+    res.cookies.set('token', token, {
       httpOnly: true,
     });
 
@@ -42,10 +42,10 @@ export const POST = async (req: NextRequest) => {
   } catch (e: any) {
     return NextResponse.json(
       {
-        message: "User not found",
+        message: 'User not found',
         error: e.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

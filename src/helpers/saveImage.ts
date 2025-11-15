@@ -1,5 +1,5 @@
-import { ref, uploadString } from "firebase/storage";
-import { storage } from "@/config/firebase";
+import { ref, uploadString } from 'firebase/storage';
+import { storage } from '@/config/firebase';
 
 type data = {
   imageData: string;
@@ -11,9 +11,9 @@ export const uploadImageToStorage = async ({ imageData, imageName }: data) => {
   // Data URL string
   const image = `data:image/png;base64,${imageData}`;
   try {
-    const res = await uploadString(storageRef, image, "data_url");
+    const res = await uploadString(storageRef, image, 'data_url');
     return res;
   } catch (e) {
-    throw new Error("Image not uploaded");
+    throw new Error('Image not uploaded');
   }
 };

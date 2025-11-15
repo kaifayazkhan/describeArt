@@ -1,4 +1,4 @@
-import emailjs from "@emailjs/browser";
+import emailjs from '@emailjs/browser';
 
 type EmailData = {
   name: string;
@@ -16,14 +16,14 @@ const sendMail = async (variables: EmailData) => {
   };
   try {
     const response = await emailjs.send(
-      "service_z905fmr",
-      "template_1p76z8k",
+      'service_z905fmr',
+      'template_1p76z8k',
       data,
-      "jcoqlfowIkys2Yh1s"
+      'jcoqlfowIkys2Yh1s',
     );
     return response;
   } catch (err: any) {
-    throw new Error("Mail not send", err);
+    throw new Error('Mail not send', err);
   }
 };
 

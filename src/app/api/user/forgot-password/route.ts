@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/config/firebase";
+import { NextRequest, NextResponse } from 'next/server';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '@/config/firebase';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -9,16 +9,16 @@ export const POST = async (req: NextRequest) => {
     sendPasswordResetEmail(auth, email);
 
     return NextResponse.json({
-      message: "Reset password link is sent to your email",
+      message: 'Reset password link is sent to your email',
       status: 200,
     });
   } catch (e: any) {
     return NextResponse.json(
       {
-        message: "User not found with this email",
+        message: 'User not found with this email',
         error: e.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
