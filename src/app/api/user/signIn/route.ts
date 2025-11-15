@@ -42,7 +42,7 @@ export const POST = async (req: NextRequest) => {
   } catch (e: any) {
     return NextResponse.json(
       {
-        message: 'User not found',
+        message: 'Authentication failed',
         error: e.message,
       },
       { status: 500 },

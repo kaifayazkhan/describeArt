@@ -12,7 +12,7 @@ export const signUpSchema = z
     name: z
       .string()
       .nonempty('Name is required.')
-      .min(3, { message: 'Must be 5 or more characters long' })
+      .min(3, { message: 'Must be 3 or more characters long' })
       .max(30, { message: 'Name must be less than 30 words' }),
     email: z.string().nonempty('Email is required.').email(),
     password: z
