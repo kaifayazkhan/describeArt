@@ -1,8 +1,10 @@
+"use client"
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 export default function Footer() {
+    const currentYear = new Date().getFullYear();
     return (
         <footer className='padding-x bg-[#000] p-4 flex-Row-between'>
             <div className="flex-Row-center gap-1">
@@ -11,7 +13,7 @@ export default function Footer() {
                 </Link>
             </div>
             <div className="flex-Row-center gap-1">
-                <p>Copyright &copy;2023</p>
+                <p>Copyright &copy;{currentYear}</p>
             </div>
         </footer>
     )
