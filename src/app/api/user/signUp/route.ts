@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
-} from "firebase/auth";
-import { auth } from "@/config/firebase";
-import { saveUser } from "@/helpers/saveUser";
+} from 'firebase/auth';
+import { auth } from '@/config/firebase';
+import { saveUser } from '@/helpers/saveUser';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
     const response = await createUserWithEmailAndPassword(
       auth,
       email,
-      password
+      password,
     );
     const user = response.user;
     if (user) {
@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     return NextResponse.json({
-      message: "User Created",
+      message: 'User Created',
       status: 201,
       data: response,
     });

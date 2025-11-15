@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 type signInType = {
   username: string;
@@ -14,13 +14,13 @@ type signUpType = {
 export const signIn = async ({ username, password }: signInType) => {
   try {
     const res = await axios.post(
-      "/api/user/signIn",
+      '/api/user/signIn',
       { email: username, password },
       {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
         },
-      }
+      },
     );
     return res;
   } catch (error) {
@@ -31,7 +31,7 @@ export const signIn = async ({ username, password }: signInType) => {
 export const signUp = async ({ name, email, password }: signUpType) => {
   try {
     const res = await axios.post(
-      "/api/user/signUp",
+      '/api/user/signUp',
       {
         name,
         email,
@@ -39,9 +39,9 @@ export const signUp = async ({ name, email, password }: signUpType) => {
       },
       {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
         },
-      }
+      },
     );
     return res;
   } catch (error: any) {
@@ -52,15 +52,15 @@ export const signUp = async ({ name, email, password }: signUpType) => {
 export const forgotPassword = async ({ email }: { email: string }) => {
   try {
     const res = await axios.post(
-      "/api/user/forgot-password",
+      '/api/user/forgot-password',
       {
         email,
       },
       {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
         },
-      }
+      },
     );
     return res;
   } catch (error: any) {
