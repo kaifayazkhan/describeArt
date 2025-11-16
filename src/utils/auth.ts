@@ -28,8 +28,9 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: '',
-      clientSecret: '',
+      prompt: 'select_account',
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
   database: drizzleAdapter(db, {
