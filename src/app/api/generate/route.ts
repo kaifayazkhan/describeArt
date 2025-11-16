@@ -3,11 +3,14 @@ import axios, { AxiosResponse } from 'axios';
 import { uploadImageToStorage } from '@/helpers/saveImage';
 import { createRequest } from '@/helpers/createRequest';
 import { getDownloadURL } from 'firebase/storage';
-import { jwtDecode } from 'jwt-decode';
+import { auth } from '@/utils/auth';
 
 export const POST = async (req: NextRequest) => {
-  const token = req.cookies.get('token')?.value || '';
-  if (!token) {
+  const session = await auth.api.getSession({
+    headers: req.headers,
+  });
+
+  if (!session) {
     return NextResponse.json(
       {
         message: 'Unauthorized - Token not present',
@@ -16,10 +19,10 @@ export const POST = async (req: NextRequest) => {
       { status: 404 },
     );
   }
+
+  const userId = session.user.id;
   try {
-    const decoded = jwtDecode(token);
-    const id = (decoded as any)?.user_id;
-    if (!id) {
+    if (!userId) {
       console.error('User ID not present in token payload.');
       return NextResponse.json(
         { message: 'Unauthorized - User ID Missing', status: 401 },
@@ -65,14 +68,13 @@ export const POST = async (req: NextRequest) => {
         });
 
         if (uploadImage) {
-          const url = await getDownloadURL(uploadImage.ref);
-          return url;
+          return await getDownloadURL(uploadImage.ref);
         }
       }),
     );
     //Returns the response with image urls
     if (imageUrls.length > 0) {
-      createRequest({ prompt, imageCount, response: imageUrls });
+      await createRequest({ prompt, imageCount, response: imageUrls });
       return NextResponse.json(
         { message: 'Image generated successfully', data: imageUrls },
         { status: 201 },

@@ -1,7 +1,13 @@
 import axios from 'axios';
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY!;
-const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL!;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
+
+if (!RESEND_API_KEY || !RESEND_FROM_EMAIL) {
+  throw new Error(
+    'Missing required environment variables: RESEND_API_KEY and RESEND_FROM_EMAIL',
+  );
+}
 
 type EmailInput = {
   email: string;
@@ -25,6 +31,7 @@ export const sendEmail = async ({ email, subject, body }: EmailInput) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
+        timeout: 10000,
       },
     );
 
@@ -33,5 +40,6 @@ export const sendEmail = async ({ email, subject, body }: EmailInput) => {
     }
   } catch (error) {
     console.log(error);
+    throw new Error('Failed to send email', { cause: error });
   }
 };

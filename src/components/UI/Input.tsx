@@ -7,6 +7,7 @@ type Input = {
   placeholder: string;
   value?: number;
   register?: UseFormRegisterReturn;
+  error?: string;
 };
 
 export default function InputBox({
@@ -15,17 +16,21 @@ export default function InputBox({
   placeholder,
   value,
   register,
+  error,
 }: Input) {
   return (
     <div className='flex-Col gap-2'>
-      <label htmlFor={title}>{title}</label>
+      <label htmlFor={title} className={`${error ? 'text-red-500' : ''}`}>
+        {title}
+      </label>
       <input
         type={type}
         placeholder={placeholder}
         value={value}
-        className='outline-none border rounded-md p-4 bg-transparent border-primaryCTA'
+        className={`outline-none border rounded-md p-4 bg-transparent ${error ? 'border-red-500' : 'border-primaryCTA'} `}
         {...register}
       />
+      {error && <span className='text-red-500'>{error}</span>}
     </div>
   );
 }

@@ -1,8 +1,12 @@
 import { z } from 'zod';
 
+const passwordSchema = z.string().min(8, {
+  message: 'Password must be greater than or equal to 8 characters',
+});
+
 export const signInSchema = z.object({
-  username: z.string().nonempty('Email is required').email(),
-  password: z.string().nonempty('Password is required.'),
+  email: z.string().nonempty('Email is required').email(),
+  password: passwordSchema,
 });
 
 export type SingInInputs = z.infer<typeof signInSchema>;
@@ -15,10 +19,7 @@ export const signUpSchema = z
       .min(3, { message: 'Must be 3 or more characters long' })
       .max(30, { message: 'Name must be less than 30 words' }),
     email: z.string().nonempty('Email is required.').email(),
-    password: z
-      .string()
-      .nonempty('Password is required.')
-      .min(6, { message: 'Password must be greater than 6 characters' }),
+    password: passwordSchema,
     confirmPassword: z.string().nonempty('Confirm Password is required.'),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -35,6 +36,12 @@ export const forgotPasswordEmailSchema = z.object({
 export type ForgotPasswordEmailInput = z.infer<
   typeof forgotPasswordEmailSchema
 >;
+
+export const resetPasswordSchema = z.object({
+  password: passwordSchema,
+});
+
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 
 export const GenerateSchema = z.object({
   prompt: z
